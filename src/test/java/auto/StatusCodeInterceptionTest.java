@@ -10,7 +10,7 @@ import java.util.Collections;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
-public class HW1StatusCodeInterceptionTest extends BaseTest {
+public class StatusCodeInterceptionTest extends BaseTest {
 
     String btn404 = "//a[@href='status_codes/404']";
     String newText = "//h3[text()='Mocked Success Response']";
