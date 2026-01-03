@@ -29,6 +29,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <allure.results.directory>allure-results</allure.results.directory>
         <allure.report.directory>target/allure-report</allure.report.directory>
+        <ashot.version>1.5.4</ashot.version>
     </properties>
 
     <dependencies>
@@ -102,6 +103,11 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
             <version>${surefire.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ru.yandex.qatools.ashot</groupId>
+            <artifactId>ashot</artifactId>
+            <version>${ashot.version}</version>
         </dependency>
     </dependencies>
 
