@@ -30,6 +30,8 @@
         <allure.results.directory>allure-results</allure.results.directory>
         <allure.report.directory>target/allure-report</allure.report.directory>
         <ashot.version>1.5.4</ashot.version>
+        <junit.jupiter.execution.parallel.enabled>true</junit.jupiter.execution.parallel.enabled>
+        <junit.jupiter.execution.parallel.mode.default>concurrent</junit.jupiter.execution.parallel.mode.default>
     </properties>
 
     <dependencies>
@@ -110,7 +112,6 @@
             <version>${ashot.version}</version>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -137,15 +138,26 @@
                         -Dfile.encoding=UTF-8
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectjweaver.version}/aspectjweaver-${aspectjweaver.version}.jar"
                     </argLine>
-<!--                    <systemProperties>-->
+                    <systemProperties>
 <!--                        <property>-->
 <!--                            <name>allure.results.directory</name>-->
 <!--                            <value>${allure.results.directory}</value>-->
 <!--                        </property>-->
-<!--                    </systemProperties>-->
+                    </systemProperties>
                     <includes>
                         <include>**/*Test.java</include>
                     </includes>
+                    <properties>
+                        <property>
+                            <name>junit.jupiter.execution.parallel.enabled</name>
+                            <value>true</value>
+                        </property>
+                        <configurationParameters>
+                            junit.jupiter.execution.parallel.enabled = true
+                            junit.jupiter.execution.parallel.mode.default = concurrent
+                            junit.jupiter.execution.parallel.config.strategy = dynamic
+                        </configurationParameters>
+                    </properties>
                 </configuration>
             </plugin>
         </plugins>
@@ -160,7 +172,7 @@
                 <configuration>
                     <propertiesFilePath>src/test/resources/allure.properties</propertiesFilePath>
                     <reportVersion>2.4.0</reportVersion>
-<!--                    <reportDirectory>${basedir}/target/allure-report</reportDirectory>-->
+                    <!--                    <reportDirectory>${basedir}/target/allure-report</reportDirectory>-->
                     <resultsDirectory>${basedir}/allure-results</resultsDirectory>
                 </configuration>
             </plugin>
