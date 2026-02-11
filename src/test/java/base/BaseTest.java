@@ -11,18 +11,19 @@ import java.util.Properties;
 
 public class BaseTest {
     static Playwright playwright;
-    Browser browser;
+    static Browser browser;
     public BrowserContext context;
     public Page page;
-
+    static BrowserType browserType;
     protected static Properties config;
 
     @BeforeAll
     static void setupConfig() {
+        playwright = Playwright.create();
         config = ConfigLoader.load();  // Загружаем конфиг 1 раз
 
         // Выбор браузера на основе параметра
-        BrowserType browserType = switch (config.getProperty("browser")) {
+        browserType = switch (config.getProperty("browser")) {
             case "firefox" -> playwright.firefox();
             case "webkit" -> playwright.webkit();
             default -> playwright.chromium();  // Значение по умолчанию
@@ -32,8 +33,7 @@ public class BaseTest {
 
     @BeforeEach
     void setUp() {
-        playwright = Playwright.create();
-        browser = playwright.chromium().launch(new BrowserType.LaunchOptions()
+        browser = browserType.launch(new BrowserType.LaunchOptions()
                 .setHeadless(false));
         context = browser.newContext();
         page = context.newPage();
