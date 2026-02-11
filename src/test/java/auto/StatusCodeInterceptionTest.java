@@ -1,20 +1,42 @@
 package auto;
 
-import base.BaseTest;
-import com.microsoft.playwright.Locator;
-import com.microsoft.playwright.Route;
+import base.ConfigLoader;
+import com.microsoft.playwright.*;
 import com.microsoft.playwright.assertions.LocatorAssertions;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+
 import java.util.Collections;
+import java.util.Properties;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
-
-public class StatusCodeInterceptionTest extends BaseTest {
-
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+public class StatusCodeInterceptionTest {
+    static Playwright playwright;
+    static Browser browser;
+    static BrowserContext context;
+    static Page page;
+    static BrowserType browserType;
+    protected static Properties config;
     String btn404 = "//a[@href='status_codes/404']";
     String newText = "//h3[text()='Mocked Success Response']";
 
+    @BeforeAll
+    static void setupConfig() {
+        playwright = Playwright.create();
+        config = ConfigLoader.load();  // Загружаем конфиг 1 раз
+
+        // Выбор браузера на основе параметра
+        browserType = switch (config.getProperty("browser")) {
+            case "firefox" -> playwright.firefox();
+            case "webkit" -> playwright.webkit();
+            default -> playwright.chromium();  // Значение по умолчанию
+        };
+
+        browser = browserType.launch(new BrowserType.LaunchOptions()
+                .setHeadless(true));
+        context = browser.newContext();
+        page = context.newPage();
+    }
     @Test
     void testMockedStatusCode() {
         // Перехват запроса к /status_codes/404
@@ -55,5 +77,12 @@ public class StatusCodeInterceptionTest extends BaseTest {
 
     }
 
+    @AfterAll
+    void tearDown() {
+        page.close();
+        context.close();
+        browser.close();
+        playwright.close();
+    }
 
 }
