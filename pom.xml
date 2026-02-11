@@ -118,9 +118,9 @@
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
                 <version>${allure-maven.version}</version>
-<!--                <configuration>-->
-<!--                    <reportDirectory>${basedir}/target/allure-results</reportDirectory>-->
-<!--                </configuration>-->
+<!--                                <configuration>-->
+<!--                                    <reportDirectory>${basedir}/target/allure-results</reportDirectory>-->
+<!--                                </configuration>-->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -138,12 +138,12 @@
                         -Dfile.encoding=UTF-8
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectjweaver.version}/aspectjweaver-${aspectjweaver.version}.jar"
                     </argLine>
-                    <systemProperties>
-<!--                        <property>-->
-<!--                            <name>allure.results.directory</name>-->
-<!--                            <value>${allure.results.directory}</value>-->
-<!--                        </property>-->
-                    </systemProperties>
+                                        <systemProperties>
+                                            <property>
+                                                <name>allure.results.directory</name>
+                                                <value>${allure.results.directory}</value>
+                                            </property>
+                                        </systemProperties>
                     <includes>
                         <include>**/*Test.java</include>
                     </includes>
@@ -172,7 +172,7 @@
                 <configuration>
                     <propertiesFilePath>src/test/resources/allure.properties</propertiesFilePath>
                     <reportVersion>2.4.0</reportVersion>
-                    <!--                    <reportDirectory>${basedir}/target/allure-report</reportDirectory>-->
+                    <reportDirectory>${basedir}/target/allure-report</reportDirectory>
                     <resultsDirectory>${basedir}/allure-results</resultsDirectory>
                 </configuration>
             </plugin>
