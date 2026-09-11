@@ -6,4 +6,10 @@ import org.aeonbits.owner.Config;
 public interface EnvConfig extends Config {
     @Key("baseUrl")
     String baseUrl();
+
+    @Key("username")
+    String userName();
+
+    @Key("password")
+    String password();
 }
