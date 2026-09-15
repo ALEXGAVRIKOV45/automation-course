@@ -126,6 +126,13 @@
             <artifactId>postgresql</artifactId>
             <version>42.7.5</version>  <!-- актуальную версию смотрите в mvnrepository -->
         </dependency>
+        <!-- Source: https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.30</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
