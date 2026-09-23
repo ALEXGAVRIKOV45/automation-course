@@ -12,14 +12,36 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
+/**
+ * Тестовый класс для проверки динамической загрузки контента на странице
+ * с использованием Playwright и трассировки выполнения.
+ *
+ * <p>Тест выполняется на демонстрационном сайте
+ * <a href="https://the-internet.herokuapp.com/dynamic_loading/1">the-internet.herokuapp.com</a>,
+ * который эмулирует отложенную загрузку элемента "Hello World!" после нажатия кнопки "Start".</p>
+ *
+ * <p><b>Внимание:</b> для работы теста требуется установленный браузер Chromium
+ * и доступ к сети Интернет.</p>
+ *
+ * @author  Alex Gavrikov
+ * @version 1.0
+ * @see     com.microsoft.playwright.Playwright
+ * @see     com.microsoft.playwright.Tracing
+ * @see     java.util.concurrent.CompletableFuture
+ */
 public class DynamicLoadingTraceTest {
     Playwright playwright;
     Browser browser;
     BrowserContext context;
     Page page;
 
+    /**
+     * Тестирует динамическую загрузку контента с включённой трассировкой
+     * и перехватом сетевых запросов.
+     *
+     */
     @Test
+    @DisplayName("Проверка динамической загрузки с трассировкой и анализом ответа запроса")
     void testDynamicLoadingWithTrace(TestInfo testInfo) throws IOException {
 
         playwright = Playwright.create();
